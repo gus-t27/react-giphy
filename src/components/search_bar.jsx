@@ -1,45 +1,18 @@
 import React, { Component } from 'react';
 
+const DEFAULT_SEARCH = "homer thinking";
+
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      term: ""
-    };
-  }
-
   handleUpdate = (event) => {
-    this.setState({
-      term: event.target.value
-    });
     this.props.searchFunction(event.target.value);
   }
 
-  componentWillMount() {
-    console.log("SEARCH_BAR WILL MOUNT");
-    setInterval;
-  }
-
-  componentDidMount() {
-    console.log("SEARCH_BAR DID MOUNT");
-  }
-
-  // handleUpdate = (event) => {
-  //   this.props.searchFunction(event.target.value);
-  // }
-
-  componentWillUnmount() {
-    clearInterval;
-  }
-
   render() {
-    console.log("SEARCH_BAR RENDER");
     return (
       <input
-        value={this.state.term}
         type="text"
         className="form-control form-search"
+        defaultValue={DEFAULT_SEARCH}
         onChange={this.handleUpdate}
       />
     );
@@ -47,3 +20,4 @@ class SearchBar extends Component {
 }
 
 export default SearchBar;
+export { DEFAULT_SEARCH };

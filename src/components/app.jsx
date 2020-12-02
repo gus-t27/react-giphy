@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import giphy from 'giphy-api';
 
-import SearchBar from './search_bar.jsx';
+import SearchBar, {DEFAULT_SEARCH} from './search_bar.jsx';
 import Gif from './gif.jsx';
 import GifList from './gif_list.jsx';
+
+const GIPHY_API_KEY = 'OrLqHCsD8ogLrvsJUgjcImDkKuPc8eOM';
 
 class App extends Component {
   constructor(props) {
@@ -11,19 +13,27 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedGifId: null //"xT9IgDEI1iZyb2wqo8"
+      selectedGifId: "xT9IgDEI1iZyb2wqo8"
     };
+    this.search(DEFAULT_SEARCH);
   }
 
   search = (query) => {
-    giphy('OrLqHCsD8ogLrvsJUgjcImDkKuPc8eOM').search({
-      q: query,
-      rating: 'g',
-      limit: 10
-    }, (error, result) => {
-      this.setState({
-        gifs: result.data
+    giphy({ apiKey: GIPHY_API_KEY, https: true })
+      .search({
+        q: query,
+        rating: 'g',
+        limit: 10
+      }, (error, result) => {
+        this.setState({
+          gifs: result.data
+        });
       });
+  }
+
+  selectGif = (id) => {
+    this.setState({
+      selectedGifId: id
     });
   }
 
